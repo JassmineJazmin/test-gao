@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+
+    <t t-extend="ClientDetailsEdit">
+        <t t-jquery=".client-details-right div:nth-child(4)" t-operation="after">
+            <div class='client-detail'>
+                <span class='label'>Uso CFDI</span>
+                <select class="detail l10n_mx_edi_usage" name='l10n_mx_edi_usage' >
+                    <option value="G01" t-att-selected="partner.l10n_mx_edi_usage ? (('G01' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">G01 - Adquisicion de mercancias</option>
+                    <option value="G02" t-att-selected="partner.l10n_mx_edi_usage ? (('G02' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">G02 - Devoluciones, descuentos o bonificaciones</option>
+                    <option value="G03" t-att-selected="partner.l10n_mx_edi_usage ? (('G03' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">G03 - Gastos en genera</option>
+                    <option value="I01" t-att-selected="partner.l10n_mx_edi_usage ? (('I01' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">I01 - Construcciones</option>
+                    <option value="I02" t-att-selected="partner.l10n_mx_edi_usage ? (('I02' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">I02 - Mobilario y equipo de oficina por inversiones</option>
+                    <option value="I03" t-att-selected="partner.l10n_mx_edi_usage ? (('I03' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">I03 - Equipo de transporte</option>
+                    <option value="I04" t-att-selected="partner.l10n_mx_edi_usage ? (('I04' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">I04 - Equipo de computo y accesorios</option>
+                    <option value="I05" t-att-selected="partner.l10n_mx_edi_usage ? (('I05' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">I05 - Dados, troqueles, moldes, matrices y herramienta</option>
+                    <option value="I06" t-att-selected="partner.l10n_mx_edi_usage ? (('I06' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">I06 - Comunicaciones telefonicas</option>
+                    <option value="I07" t-att-selected="partner.l10n_mx_edi_usage ? (('I07' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">I07 - Comunicaciones satelitales</option>
+                    <option value="I08" t-att-selected="partner.l10n_mx_edi_usage ? (('I08' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">I08 - Otra maquinaria y equipo</option>
+                    <option value="D01" t-att-selected="partner.l10n_mx_edi_usage ? (('D01' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">D01 - Honorarios medicos, dentales y gastos hospitalarios.</option>
+                    <option value="D02" t-att-selected="partner.l10n_mx_edi_usage ? (('D02' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">D02 - Gastos medicos por incapacidad o discapacidad</option>
+                    <option value="D03" t-att-selected="partner.l10n_mx_edi_usage ? (('D03' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">D03 - Gastos funerales</option>
+                    <option value="D04" t-att-selected="partner.l10n_mx_edi_usage ? (('D04' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">D04 - Donativos</option>
+                    <option value="D05" t-att-selected="partner.l10n_mx_edi_usage ? (('D05' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">D05 - Intereses reales efectivamente pagados por creditos hipotecarios (casa habitacion)</option>
+                    <option value="D06" t-att-selected="partner.l10n_mx_edi_usage ? (('D06' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">D06 - Aportaciones voluntarias al SAR</option>
+                    <option value="D07" t-att-selected="partner.l10n_mx_edi_usage ? (('D07' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">D07 - Primas por seguros de gastos medicos</option>
+                    <option value="D08" t-att-selected="partner.l10n_mx_edi_usage ? (('D08' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">D08 - Gastos de transportacion escolar obligatoria</option>
+                    <option value="D09" t-att-selected="partner.l10n_mx_edi_usage ? (('D09' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">D09 - Depositos en cuentas para el ahorro, primas que tengan como base planes de pensiones.</option>
+                    <option value="D10"  t-att-selected="partner.l10n_mx_edi_usage ? (('D10' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">D10 - Pagos por servicios educativos (colegiaturas)</option>
+                    <option value="P01"  t-att-selected="partner.l10n_mx_edi_usage ? (('P01' === partner.l10n_mx_edi_usage) ? true : undefined) : undefined">P01 - Por definir</option>
+                </select>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="ClientDetails">
+        <t t-jquery=".client-details-right div:nth-child(2)" t-operation="after">
+            <div class='client-detail'>
+                <span class='label'>Uso CFDI</span>
+                <t t-if='partner.l10n_mx_edi_usage'>
+                        <span class='detail l10n_mx_edi_usage'><t t-esc='widget.pos.get_uso_cfdi(partner.l10n_mx_edi_usage)'/></span>
+                </t>
+                <t t-if='!partner.l10n_mx_edi_usage'>
+                    <span class='detail l10n_mx_edi_usage empty'>N/A</span>
+                </t>
+
+            </div>
+        
+        </t>
+    </t>
+
+<!-- <select class="detail l10n_mx_edi_usage" name='l10n_mx_edi_usage' >
+    <option value="G01">G01 - Adquisicion de mercancias</option>
+    <option value="G02">G02 - Devoluciones, descuentos o bonificaciones</option>
+    <option value="G03">G03 - Gastos en genera</option>
+    <option value="I01">I01 - Construcciones</option>
+    <option value="I02">I02 - Mobilario y equipo de oficina por inversiones</option>
+    <option value="I03">I03 - Equipo de transporte</option>
+    <option value="I04">I04 - Equipo de computo y accesorios</option>
+    <option value="I05">I05 - Dados, troqueles, moldes, matrices y herramienta</option>
+    <option value="I06">I06 - Comunicaciones telefonicas</option>
+    <option value="I07">I07 - Comunicaciones satelitales</option>
+    <option value="I08">I08 - Otra maquinaria y equipo</option>
+    <option value="D01">D01 - Honorarios medicos, dentales y gastos hospitalarios.</option>
+    <option value="D02">D02 - Gastos medicos por incapacidad o discapacidad</option>
+    <option value="D03">D03 - Gastos funerales</option>
+    <option value="D04">D04 - Donativos</option>
+    <option value="D05">D05 - Intereses reales efectivamente pagados por creditos hipotecarios (casa habitacion)</option>
+    <option value="D06">D06 - Aportaciones voluntarias al SAR</option>
+    <option value="D07">D07 - Primas por seguros de gastos medicos</option>
+    <option value="D08">D08 - Gastos de transportacion escolar obligatoria</option>
+    <option value="D09">D09 - Depositos en cuentas para el ahorro, primas que tengan como base planes de pensiones.</option>
+    <option value="D10">D10 - Pagos por servicios educativos (colegiaturas)</option>
+    <option value="P01">P01 - Por definir</option>
+</select> -->
+
+
+</templates>
