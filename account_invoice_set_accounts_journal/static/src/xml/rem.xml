@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="template" xml:space="preserve">
+    <t t-extend="stock_barcode_lines_widget">
+        <t t-jquery='button[class="btn btn-secondary text-uppercase o_add_line"]' t-operation='replace'>
+        	<button class="btn btn-secondary text-uppercase o_add_line" t-if="widget.groups.group_barcode_scanner_add_products"><i class="fa fa-plus mr-1"/> Añadir Producto</button>
+        </t>   
+    </t> 
+    <t t-extend="stock_barcode_lines_template">
+        <t t-jquery='[t-foreach="lines"]' t-operation="replace">
+        	<t t-foreach="lines" t-as="line">
+                <div class="o_barcode_line list-group-item d-flex flex-row flex-nowrap" t-if="model == 'stock.picking'" t-att-data-id="line.virtual_id || line.id" t-att-data-barcode="line.product_barcode">
+                    <div class="o_barcode_line_details flex-grow-1 flex-column flex-nowrap">
+                        <div class="o_barcode_line_title pb-1"><i class="fa fa-fw fa-tags"/> <span class="product-label"><t t-esc="line.display_name"></t></span></div>
+                        <div>
+                            <i class="fa fa-fw fa-cube"/>
+                            <span t-attf-class="o_barcode_scanner_qty text-monospace badge #{' '}"> <!-- @SLE: Eventually add contextual classes: "badge-warning", "badge-danger", "badge-success"  -->
+                                <!-- <span class="qty-done d-inline-block text-left" t-esc="line.qty_done"/>
+                                <span t-if="line.product_uom_qty" t-esc="'/ ' + line.product_uom_qty"/> -->
+                                <div t-if="groups.group_barcode_scanner_show_qty">
+                                	<span class="qty-done d-inline-block text-left" t-esc="line.qty_done"/>
+                                	<span t-if="line.product_uom_qty" t-esc="'/ ' + line.product_uom_qty"/>
+                                </div>
+                                <div t-else="">
+                                	<span t-esc="line.product_uom_qty"/>
+                                </div>
+                                
+                            </span>
+                            <span t-if="groups.group_uom" t-esc="line.product_uom_id[1]"/>
+                        </div>
+                        <div t-if="line.package_id || line.result_package_id">
+                            <i class="fa fa-fw fa-truck"/> <t t-if="line.package_id" t-esc="line.package_id[1]"></t> <span class="fa fa-long-arrow-right"></span> <t t-if="line.result_package_id" t-esc="line.result_package_id[1]"></t>
+                        </div>
+                        <div t-if="line.owner_id">
+                            <i class="fa fa-fw fa-user-o"/> <t t-esc="line.owner_id[1]"></t>
+                        </div>
+                        <div t-if="line.product_id.tracking !== 'none'">
+                            <i class="fa fa-barcode"/>
+                            <span class="o_line_lot_name"><t t-if="line.lot_name" t-esc="line.lot_name"></t></span>
+                            <span class="o_line_lot_id"><t t-if="! line.lot_name &amp;&amp; line.lot_id &amp;&amp; line.lot_id[1]" t-esc="line.lot_id[1]"></t></span>
+                        </div>
+                    </div>
+                    <!-- Modificación a Exportar -->
+                    <!-- Modificación en operaciones -->
+                    <div t-if="state != 'done' and state != 'cancel'" class="o_barcode_line_actions d-flex align-items-center pl-4">
+                        <!-- Original -->
+                        <!-- <span t-if="groups.group_barcode_scanner_sudo"> SI</span> -->
+                        <a class="o_edit text-muted" href="#" title="Edit" t-if="groups.group_barcode_scanner_edit_ops"><i class="fa fa-pencil"/></a>
+                        <!-- ####################### -->
+                    </div>
+                    <!-- ####################### -->
+                </div>
+                <div class="o_barcode_line list-group-item d-flex flex-row flex-nowrap" t-if="model == 'stock.inventory'" t-att-data-id="line.virtual_id || line.id" t-att-data-barcode="line.product_barcode">
+                    <div class="o_barcode_line_details flex-grow-1 flex-column flex-nowrap">
+                        <div class="o_barcode_line_title pb-1"><i class="fa fa-fw fa-tags"/> <span class="product-label"><t t-esc="line.product_id.display_name"></t></span></div>
+                        <div>
+                            <i class="fa fa-fw fa-cube"/>
+                            <span t-attf-class="o_barcode_scanner_qty text-monospace badge #{' '}"> <!-- @SLE, Eventually add contextual classes: "badge-warning", "badge-danger", "badge-success"  -->
+
+                                <div t-if="groups.group_barcode_scanner_show_qty_inv">
+                                    <span class="product_qty d-inline-block text-left" t-esc="line.product_qty"/>
+                                    <span t-if="line.theoretical_qty" t-esc="'/ ' + line.theoretical_qty"/>
+                                </div>
+                                <div t-else="">
+                                    <span t-esc="line.product_qty"/>
+                                </div>                                
+                            </span>
+                            <span t-if="groups.group_uom" t-esc="line.product_uom_id[1]"/>
+                        </div>
+                        <div t-if="line.package_id">
+                            <i class="fa fa-fw fa-truck"/> <t t-esc="line.package_id[1]"/>
+                        </div>
+                        <div t-if="line.product_id.tracking !== 'none'">
+                            <i class="fa fa-barcode"/>
+                            <span class="o_line_lot_name"><t t-if="line.prod_lot_id" t-esc="line.prod_lot_id[1]"></t></span>
+                        </div>
+                        <div t-if="line.partner_id">
+                            <i class="fa fa-fw fa-user-o"/> <t t-esc="line.partner_id.name"></t>
+                        </div>
+                    </div>
+                    <!-- Modificación a exportar -->
+                    <div t-if="state != 'done' and state != 'cancel'" class="o_barcode_line_actions d-flex align-items-center pl-4">
+                        <a class="o_edit text-muted" href="#" title="Edit" t-if="groups.group_barcode_scanner_edit_inv"><i class="fa fa-pencil"/></a>
+                        <!-- <t t-if="line.picking_id"><span> </span></t>
+                        <t t-else=""><span>
+                            <a class="o_edit text-muted" href="#" title="Edit"><i class="fa fa-pencil"/></a>
+                        </span></t> -->
+                        <!-- ####################### -->
+                    </div>
+
+                </div>
+            </t>
+        </t>   
+    </t> 
+ </template>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="barcode_scanner_extras" inherit_id="stock_barcode.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/replace_button_stock_barcode/static/src/js/barcode.js"></script>
+        </xpath>
+    </template>
+    
+
+
+</odoo>
