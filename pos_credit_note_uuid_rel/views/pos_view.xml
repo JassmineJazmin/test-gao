@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+         <record id="view_pos_pos_form_cfdi_refund" model="ir.ui.view">
+            <field name="name">pos.order.view.form.inherit.ip</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='pricelist_id']" position="before">
+                    <field name="is_refund_order" invisible="1"/>
+                    <field name="cfdi_origin_id" attrs="{'invisible': [('is_refund_order','=',False)]}"/>
+                    <field name="cfdi_refund_id" attrs="{'invisible': [('is_refund_order','=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
